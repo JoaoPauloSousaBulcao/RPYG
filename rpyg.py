@@ -138,27 +138,57 @@ for i, player in enumerate(filaPrioridade) :
 
 while True: 
     for index, player in enumerate(filaPrioridade):
-        print(f'Escolhe a ação que o {player['Classe']} irá fazer:')
-        action = int(input('1 - Lutar \n2 - Fugir \nAção: '))
-        match action : 
-            case 1:
-                actionFight = int(input('Escolhe qual ação irá realizar \n1 - Bater \n2 - Habilidade \nAção: '))
-                match actionFight:
-                    case 1:
-                        print('Escolhe me qual inimigo irá bater')
-                        for player in filaPrioridade:
-                            #print(player)
-                            if player['Type'] == 'Enemy' : 
-                               print(f'{player['Classe']}')
-                        enemyChoise = int(input('Inimigo: '))
-                        print(f'Bateu em ')
-                        #enemyChoiseParty = partyTotal[]
-                       # enemyChoise -= enemyChoise
-                       # enemyPartyChoise = partyEnemys[enemyChoise]
 
-                       # print(enemyPartyChoise)
+        if filaPrioridade[index]['Type'] == 'Hero' : 
+
+            print(f'Escolhe a ação que o {player['Classe']} irá fazer:')
+            action = int(input('1 - Lutar \n2 - Fugir \nAção: '))
+            match action : 
+                case 1:
+                    actionFight = int(input('Escolhe qual ação irá realizar \n1 - Bater \n2 - Habilidade \nAção: '))
+                    match actionFight:
+                        case 1:
+                            enemyChoises = []
+                            print('Escolhe me qual inimigo irá bater')
+                            for index, player in enumerate(filaPrioridade):
+                                
+                                #print(player)
+                                if player['Type'] == 'Enemy' : 
+                                    enemyIndex = index
+                                    print(f'{index + 1} - {player['Classe']}')
+                            enemyChoise = int(input('Inimigo: '))
+                            enemyChoise -= enemyChoise
+                            print(filaPrioridade[enemyChoise]['HP'])
+                            print(f'{player["Classe"]} bateu em {filaPrioridade[enemyChoise]['Classe']}.')
+                            filaPrioridade[enemyChoise]['HP'] -= player['Power']
+                            print(filaPrioridade[enemyChoise]['HP'])
+                            #enemyChoiseParty = partyTotal[]
+                        # enemyChoise -= enemyChoise
+                        # enemyPartyChoise = partyEnemys[enemyChoise]
+
+                        # print(enemyPartyChoise)
 
         
+        else :
+            countHeros = []
 
+            for index, playerHero in enumerate(filaPrioridade) : 
+                if playerHero['Type'] == 'Hero' : countHeros.append(index)
+                print(countHeros)
+
+            heroChoise = random.choice(countHeros)
+            print(heroChoise)
+
+            filaPrioridade[heroChoise]['HP'] -= player['Power']
+
+            
+            print(f'{player['Classe']} bateu em {filaPrioridade[heroChoise]['Classe']}')
+            print(f'{filaPrioridade[heroChoise]['Classe']} está com {filaPrioridade[heroChoise]['HP']} pontos de vida.')
+
+            #heroChoise = random.randint(len(countHeros))
+            #heroChoise -= heroChoise
+
+            #filaPrioridade[heroChoise]['HP'] -= player['Power']
+            #print(f'{filaPrioridade[heroChoise]['HP']}')
 
        # print(player['Classe'])
